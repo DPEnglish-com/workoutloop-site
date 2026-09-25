@@ -54,16 +54,17 @@
     <a class="brand" href="#top">
       <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true">
         <circle cx="12" cy="12" r="9.25"/>
-        <path d="M12 3.5a8.5 8.5 0 0 1 6.01 14.51"/>
+        <path class="ring-arc" pathLength="100" d="M12 3.5a8.5 8.5 0 0 1 6.01 14.51"/>
       </svg>
       <span>WorkoutLoop</span>
     </a>
-    <nav class="site-nav" aria-label="主导航">
+    <nav class="site-nav" id="site-nav" aria-label="主导航">
       <a href="#why">为什么</a>
       <a href="#how">怎么用</a>
       <a href="#features">功能</a>
       <a href="#privacy">隐私</a>
       <a class="nav-cta" href="#download">下载</a>
+      <span class="nav-marker" aria-hidden="true"></span>
     </nav>
   </div>
 </header>
@@ -74,16 +75,16 @@
   <section class="hero" id="top">
     <div class="wrap hero-inner">
       <div class="hero-copy">
-        <h1>练完一项，<br>才轮到下一项。</h1>
-        <p class="hero-sub">不打日期卡。训练计划按顺序推进，漏练不产生欠债，回来接着练就好。</p>
-        <div class="hero-actions">
+        <h1 class="rise rise-1">练完一项，<br>才轮到下一项。</h1>
+        <p class="hero-sub rise rise-2">不打日期卡。训练计划按顺序推进，漏练不产生欠债。</p>
+        <div class="hero-actions rise rise-3">
           <a class="btn btn-primary" href="./downloads/WorkoutLoop-0.1.0-release.apk" download>
             <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/><path d="M7 11l5 5 5-5"/><path d="M12 4v12"/></svg>
             下载 APK
           </a>
           <a class="btn btn-quiet" href="#why">先看看它怎么运作</a>
         </div>
-        <dl class="hero-facts">
+        <dl class="hero-facts rise rise-4">
           <div><dt>体积</dt><dd>2.1 MB</dd></div>
           <div><dt>系统</dt><dd>Android 8.0+</dd></div>
           <div><dt>联网</dt><dd>不需要</dd></div>
@@ -107,17 +108,17 @@
   <!-- ===================== WHY ===================== -->
   <section class="section" id="why">
     <div class="wrap">
-      <h2>日历会把一次缺席，<br>变成一笔账。</h2>
+      <h2 data-reveal>日历会把一次缺席，<br>变成一笔账。</h2>
       <div class="split">
-        <div class="split-text">
-          <p>大多数健身应用把训练钉在星期几。周二没练，周二就永久留空，进度条退回去，然后你开始补课。补课很累，累到第三次就不想打开了。</p>
-          <p>WorkoutLoop 换了个做法：训练计划排成一个环，你练完当前这一项，环才往前走一格。中间隔了三天还是三周，回来时它还在原地等你。</p>
-          <p>没有连胜纪录，没有断签提醒，没有积分。这些机制擅长让你为数据焦虑，而不是让你练得更好。</p>
+        <div class="split-text" data-reveal>
+          <p>大多数健身应用把训练钉在星期几。周二没练，那天就永久留空，进度条退回去，你只好补课。补到第三次，就不太想打开了。</p>
+          <p>WorkoutLoop 把计划排成一个环：练完当前这一项，环才往前一格。隔三天还是三周，回来时它还在原地等你。</p>
+          <p class="split-kicker">没有连胜，没有断签提醒，没有积分。</p>
         </div>
         <figure class="shot" data-reveal>
           <img src="./assets/shots/manage.webp" width="1920" height="1200" loading="lazy" decoding="async"
                alt="管理页：训练包列表，每项显示包含的训练计划，标注当前激活的训练包">
-          <figcaption>训练包与计划都可以随时增删改，调整不影响已经完成的记录。</figcaption>
+          <figcaption>训练包与计划随时可改，不影响已完成的记录。</figcaption>
         </figure>
       </div>
     </div>
@@ -126,23 +127,23 @@
   <!-- ===================== HOW ===================== -->
   <section class="section section-tint" id="how">
     <div class="wrap">
-      <h2>一次训练里会发生什么</h2>
-      <ol class="steps">
+      <h2 data-reveal>一次训练里会发生什么</h2>
+      <ol class="steps" id="steps">
         <li data-reveal>
           <h3>开始</h3>
-          <p>首页只回答一个问题：现在该练什么。一张卡片给出计划名、动作数量和预估时长，按下开始即进入。</p>
+          <p>首页只回答一个问题：现在该练什么。按下开始就进入。</p>
         </li>
         <li data-reveal>
           <h3>跟着环走</h3>
-          <p>计时动作走环形倒计时，数字用等宽字体，跳动时不左右晃。次数动作的环表示本动作的组数进度。屏幕离你两米也读得清。</p>
+          <p>计时动作走环形倒计时，数字等宽，跳动时不左右晃。</p>
         </li>
         <li data-reveal>
           <h3>不用看屏幕</h3>
-          <p>中文人声播报动作开始、最后十秒倒计时、休息结束。手上有汗或戴着手套时，按音量上完成本组，音量下暂停。屏幕可以一直锁着。</p>
+          <p>中文人声播报，音量上完成本组，音量下暂停。屏幕可以一直锁着。</p>
         </li>
         <li data-reveal>
           <h3>练完自动往下走</h3>
-          <p>最后一个动作结束就结算，训练队列自动推进到下一项。中途被打断也没关系，快照会存住当时的阶段，回来接着倒数。</p>
+          <p>最后一个动作结束就结算，队列推进到下一项，中途打断也能续上。</p>
         </li>
       </ol>
     </div>
@@ -151,65 +152,54 @@
   <!-- ===================== FEATURES ===================== -->
   <section class="section" id="features">
     <div class="wrap">
-      <h2>功能</h2>
+      <h2 data-reveal>功能</h2>
       <div class="feature-groups">
         <div class="group" data-reveal>
           <h3>编排</h3>
           <dl>
             <dt>两种动作顺序</dt>
-            <dd>分组模式做完一个动作的全部组数再换下一个；轮换模式按列表逐组穿插，适合平板支撑、臀桥这类交替训练。</dd>
+            <dd>分组做完一个动作的全部组数再换，或按列表逐组轮换。</dd>
             <dt>左右侧独立</dt>
-            <dd>单侧动作可以分别添加，各自记录组数，不必在心里数到哪一边了。</dd>
-            <dt>训练中改目标</dt>
-            <dd>今天状态好多做两组，只是这一次的事，不会改掉计划模板。</dd>
-            <dt>整套复制</dt>
-            <dd>训练包和单个计划都能复制成副本，改一份不影响另一份。</dd>
+            <dd>单侧动作分开添加，各自记组数，不必心里数到哪边。</dd>
           </dl>
         </div>
         <div class="group" data-reveal>
           <h3>使用</h3>
           <dl>
             <dt>音量键控制</dt>
-            <dd>音量上完成本组或跳过休息，音量下暂停与继续。训练时不必摘手套去点屏幕。</dd>
+            <dd>音量上完成本组或跳过休息，音量下暂停。手上有汗也不用点屏幕。</dd>
             <dt>人声播报</dt>
-            <dd>动作开始、最后十秒的逐秒倒数、休息结束与训练完成都有中文播报。</dd>
-            <dt>深色模式</dt>
-            <dd>默认跟随系统，也可手动指定。夜间或昏暗房间里不刺眼。</dd>
-            <dt>横竖屏都适配</dt>
-            <dd>横屏时训练页左右分栏，适合把平板架在支架上远远地看。</dd>
+            <dd>动作开始、最后十秒逐秒倒数、休息结束，都有中文播报。</dd>
           </dl>
         </div>
         <div class="group" data-reveal>
           <h3>数据</h3>
           <dl>
             <dt>本地导出</dt>
-            <dd>全部训练数据可导出成一个 JSON 文件，换设备或重装时导入恢复。</dd>
-            <dt>体重加密</dt>
-            <dd>体重与备注用 Android Keystore 的 AES-256-GCM 加密后才落盘，明文不经过数据库。</dd>
-            <dt>应用锁</dt>
-            <dd>可选开启，用指纹或设备密码拦在界面之前。设备没有可用凭据时会自动关闭，不会把你锁在门外。</dd>
+            <dd>全部训练数据导出成 JSON，换设备或重装时导入恢复。</dd>
             <dt>没有网络代码</dt>
-            <dd>应用不申请网络权限，因此它在物理上无法上传你的任何数据。</dd>
+            <dd>不申请网络权限，因此物理上无法上传你的数据。</dd>
           </dl>
         </div>
       </div>
+      <p class="feature-more" data-reveal>另有深色模式、横竖屏自适应、训练中改目标、整套复制。</p>
     </div>
   </section>
 
   <!-- ===================== PRIVACY ===================== -->
   <section class="section section-ink" id="privacy">
     <div class="wrap">
-      <h2>你的训练记录，<br>不必经过任何人的服务器。</h2>
+      <h2 data-reveal>你的训练记录，<br>不必经过任何人的服务器。</h2>
       <div class="privacy-grid">
-        <div class="privacy-lead">
-          <p>没有注册，没有账号，没有云端同步。训练数据存在手机本地的 SQLite 数据库里，卸载应用就等于彻底删除。</p>
+        <div class="privacy-lead" data-reveal>
           <p>这不是隐私政策里的承诺，而是权限清单上可以核对的事实。</p>
+          <p>没有注册，没有账号，没有云端同步。数据存在手机本地的数据库里，卸载就等于彻底删除。</p>
         </div>
-        <ul class="verify-list">
+        <ul class="verify-list" data-reveal>
           <li>
             <span class="verify-k">网络权限</span>
             <span class="verify-v">未申请</span>
-            <p>APK 的权限清单里没有 <code>INTERNET</code>，应用在系统层面无法发起网络请求。</p>
+            <p>权限清单里没有 <code>INTERNET</code>，系统层面无法发起网络请求。</p>
           </li>
           <li>
             <span class="verify-k">崩溃上报</span>
@@ -219,12 +209,12 @@
           <li>
             <span class="verify-k">体重字段</span>
             <span class="verify-v">加密存储</span>
-            <p>数据库中为密文，格式为 <code>base64(iv):base64(密文)</code>，每次写入使用随机 IV。</p>
+            <p>以 AES-256-GCM 加密后落盘，每次写入使用随机 IV。</p>
           </li>
           <li>
             <span class="verify-k">备份文件</span>
             <span class="verify-v">不含体重</span>
-            <p>导出的 JSON 刻意排除体重表。密文依赖本机密钥，带到别的设备也解不开。</p>
+            <p>导出的 JSON 刻意排除体重表，密文换台设备也解不开。</p>
           </li>
         </ul>
       </div>
@@ -234,15 +224,15 @@
   <!-- ===================== DOWNLOAD ===================== -->
   <section class="section" id="download">
     <div class="wrap">
-      <h2>下载</h2>
-      <div class="download-panel">
+      <h2 data-reveal>下载</h2>
+      <div class="download-panel" data-reveal>
         <div class="download-main">
           <p class="download-note">直接安装，无需 Google Play，无需注册。</p>
           <a class="btn btn-primary btn-large" href="./downloads/WorkoutLoop-0.1.0-release.apk" download>
             <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/><path d="M7 11l5 5 5-5"/><path d="M12 4v12"/></svg>
             下载 APK（2.1 MB）
           </a>
-          <p class="download-hint">首次安装需要在系统提示里允许「安装未知来源应用」。</p>
+          <p class="download-hint">首次安装需在系统提示里允许「安装未知来源应用」。</p>
         </div>
         <dl class="download-specs">
           <div><dt>版本</dt><dd>0.1.0</dd></div>
@@ -257,17 +247,26 @@
 
 </main>
 
-<footer class="site-footer">
+<footer class="site-footer" id="footer">
   <div class="wrap footer-inner">
-    <p class="footer-brand">WorkoutLoop</p>
-    <nav class="footer-links" aria-label="页脚导航">
-      <a href="#why">为什么</a>
-      <a href="#how">怎么用</a>
-      <a href="#features">功能</a>
-      <a href="#privacy">隐私</a>
-      <a href="#download">下载</a>
-    </nav>
-    <p class="footer-meta">无账号 · 无联网权限 · 训练数据保存在你自己的设备上</p>
+    <div class="footer-brand">
+      <svg class="brand-mark brand-mark-lg" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="9.25"/>
+        <path d="M12 3.5a8.5 8.5 0 0 1 6.01 14.51"/>
+      </svg>
+      <div>
+        <strong>WorkoutLoop</strong>
+        <span>按顺序推进的训练计划</span>
+      </div>
+    </div>
+
+    <div class="footer-contact">
+      <p class="footer-contact-title">作者与反馈</p>
+      <p class="footer-contact-line">
+        作者 <strong>肖恩</strong> · 微信 <span class="footer-wechat">16659317774</span>（添加请备注 WorkoutLoop）
+      </p>
+      <p class="footer-copy">© <span id="year">2026</span> WorkoutLoop · 练完一项，才轮到下一项。</p>
+    </div>
   </div>
 </footer>
 

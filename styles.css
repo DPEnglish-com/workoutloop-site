@@ -1,11 +1,12 @@
 /* =========================================================================
-   WorkoutLoop 宣传站
-   精密仪器式的克制语言：一个强调色（深青）、全站直角、零投影、1px 细线分区。
-   零依赖：字体自托管，无 CDN、无外部请求。
-   令牌见 site/DESIGN.md，改版面前先读它。
+   WorkoutLoop 官网样式
+   -------------------------------------------------------------------------
+   排版原则：字号只有 6 档。此前用了 16 个字号（13 / 13.5 / 14 / 14.5 / 15 /
+   15.5 混用），0.5px 的差别eye 分不出却让整页显得又小又吵 —— 这是「排版
+   奇怪」的主因。汉字是方块字，标题上做负字距会让笔画相碰，因此标题字距
+   归零，只对拉丁品牌名保留极轻的负值。
    ========================================================================= */
 
-/* ---- 自托管思源黑体子集（SIL OFL 1.1，仅含本站用到的 278 个字形） ---- */
 @font-face {
   font-family: "WorkoutLoop Sans";
   src: url("./assets/fonts/workoutloop-sans-regular.woff2") format("woff2");
@@ -21,7 +22,6 @@
   font-display: swap;
 }
 
-/* ========================= 令牌 ========================= */
 :root {
   --paper: #F5F7F5;
   --paper-2: #EAEFEB;
@@ -48,13 +48,33 @@
           system-ui, "Segoe UI", Roboto, sans-serif;
   --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
 
-  --gutter: clamp(20px, 5vw, 64px);
-  --maxw: 1180px;
-  --step: clamp(88px, 11vw, 168px);
+  /* ---- 类型阶梯：只有这 6 档 ---- */
+  --t-display: clamp(40px, 5.4vw, 66px);   /* h1 */
+  --t-title:   clamp(26px, 3.1vw, 38px);   /* h2 */
+  --t-lead:    clamp(17px, 1.3vw, 19px);   /* 导语 */
+  --t-body:    16.5px;                     /* 正文 */
+  --t-small:   14.5px;                     /* 次要说明 */
+  --t-micro:   12.5px;                     /* 等宽标签、哈希 */
 
-  --ease: cubic-bezier(.22, .61, .36, 1);
-  --dur-micro: 180ms;
+  --lh-display: 1.2;
+  --lh-title:   1.34;
+  --lh-body:    1.78;
+  --lh-small:   1.7;
+
+  /* 正文列宽约 34 个汉字，中文在这个宽度下换行最舒服 */
+  --measure: 34em;
+
+  --gutter: clamp(20px, 5vw, 64px);
+  --maxw: 1160px;
+  --step: clamp(68px, 7.5vw, 112px);
+
+  /* ---- 动效：三档时长 + 两条曲线 ----
+     160ms 状态反馈 / 240ms 位移形变 / 620ms 入场。全部一次性，不循环。 */
+  --dur-micro: 160ms;
+  --dur-ui: 240ms;
   --dur-reveal: 620ms;
+  --ease: cubic-bezier(.22, .61, .36, 1);
+  --ease-out-expo: cubic-bezier(.16, 1, .3, 1);
 
   color-scheme: light;
 }
@@ -84,39 +104,35 @@
   }
 }
 
-/* ========================= 基础 ========================= */
-*, *::before, *::after { box-sizing: border-box; }
-
-html {
-  scroll-behavior: smooth;
-  /* 锚点跳转时给固定导航留出空间，否则标题会被压在导航下面 */
-  scroll-padding-top: 88px;
-  -webkit-text-size-adjust: 100%;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
   font-family: var(--sans);
-  font-size: 16px;
-  line-height: 1.78;
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
   font-weight: 400;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* 中英混排时自动加一点间距，避免汉字与拉丁字母贴在一起 */
+  text-spacing-trim: space-all;
 }
 
-/* 中英混排时自动加一点间距，避免汉字与拉丁字母贴在一起 */
-body { text-spacing-trim: space-all; }
-
+/* 汉字是方块字：标题不加负字距，否则笔画会相碰。
+   负值只留给纯拉丁的品牌名。 */
 h1, h2, h3 {
   margin: 0;
   font-weight: 700;
-  letter-spacing: -0.02em;
-  /* 标题换行更均衡，避免末行只剩一个字 */
+  letter-spacing: 0;
   text-wrap: balance;
 }
+h1 { font-size: var(--t-display); line-height: var(--lh-display); }
+h2 { font-size: var(--t-title);   line-height: var(--lh-title); }
+h3 { font-size: var(--t-body);    line-height: 1.45; }
+
 p { margin: 0; }
 img { max-width: 100%; height: auto; display: block; }
 ul, ol, dl, dd { margin: 0; padding: 0; }
@@ -124,9 +140,11 @@ li { list-style: none; }
 
 code {
   font-family: var(--mono);
-  font-size: .875em;
+  /* 继承字号，不引入第 7 档。等宽字形本身就与正文区分得开，
+     再叠一个 .88em 只会多出一个 12.76px 的尺寸。 */
+  font-size: 1em;
   background: var(--accent-soft);
-  padding: .12em .38em;
+  padding: .1em .34em;
 }
 
 a { color: var(--accent-text); text-decoration-thickness: 1px; text-underline-offset: .22em; }
@@ -138,9 +156,8 @@ a:hover { text-decoration-thickness: 2px; }
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
-html { caret-color: var(--accent); }
+html { caret-color: var(--accent); scroll-behavior: smooth; }
 
-/* 滚动条按令牌主题化，而不是留系统默认 */
 * { scrollbar-width: thin; scrollbar-color: var(--hair-2) transparent; }
 *::-webkit-scrollbar { width: 10px; height: 10px; }
 *::-webkit-scrollbar-track { background: transparent; }
@@ -167,7 +184,7 @@ html { caret-color: var(--accent); }
 .skip-link:focus { left: 0; }
 
 /* ========================= 阅读进度 =========================
-   页面顶部的 1px 细线，表示读了多远。呼应产品的「进度」母题，
+   页面顶部的 2px 细线，表示读了多远。呼应产品的「进度」母题，
    不是装饰：它只在滚动时出现，到顶时消失。 */
 .read-progress {
   position: fixed;
@@ -206,7 +223,7 @@ html { caret-color: var(--accent); }
   color: var(--ink);
   text-decoration: none;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.01em;   /* 纯拉丁品牌名，可以有极轻负字距 */
   flex: none;
 }
 .brand-mark { width: 22px; height: 22px; flex: none; }
@@ -214,6 +231,7 @@ html { caret-color: var(--accent); }
 .brand-mark path { fill: none; stroke: var(--accent); stroke-width: 2.4; stroke-linecap: round; }
 
 .site-nav {
+  position: relative;
   display: flex;
   align-items: center;
   gap: clamp(14px, 2.4vw, 32px);
@@ -223,14 +241,40 @@ html { caret-color: var(--accent); }
 .site-nav a {
   color: var(--ink-2);
   text-decoration: none;
-  font-size: 14.5px;
+  font-size: var(--t-small);
   transition: color var(--dur-micro) var(--ease);
 }
 .site-nav a:hover { color: var(--ink); }
+.site-nav a.is-active { color: var(--ink); }
 
 .nav-cta {
   color: var(--accent-text) !important;
   font-weight: 700;
+}
+
+/* 当前所在区块的滑块下划线。它回答「我读到哪了」，不是装饰。 */
+.nav-marker {
+  position: absolute;
+  left: 0;
+  bottom: -9px;
+  height: 2px;
+  width: var(--nav-w, 0px);
+  background: var(--accent);
+  transform: translateX(var(--nav-x, 0px));
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 340ms var(--ease-out-expo),
+              width 340ms var(--ease-out-expo),
+              opacity var(--dur-ui) var(--ease);
+}
+.nav-marker.is-on { opacity: 1; }
+
+/* 窄屏放不下「品牌名 + 五项导航」并排：实测 390px 时导航右边缘到 415px，
+   直接把页面撑出横向滚动。这里让出品牌名（环本身就是标识），
+   把宽度留给导航，而不是让导航换行或缩小到读不清。 */
+@media (max-width: 560px) {
+  .brand span { display: none; }
+  .header-inner { gap: 14px; }
 }
 
 /* ========================= 按钮 ========================= */
@@ -245,7 +289,7 @@ html { caret-color: var(--accent); }
   /* 全站圆角为 0，这是这套语言的一部分 */
   border-radius: 0;
   font-family: inherit;
-  font-size: 15px;
+  font-size: var(--t-body);
   font-weight: 700;
   line-height: 1;
   text-decoration: none;
@@ -254,12 +298,12 @@ html { caret-color: var(--accent); }
   transition: background-color var(--dur-micro) var(--ease),
               border-color var(--dur-micro) var(--ease),
               color var(--dur-micro) var(--ease),
-              transform 90ms var(--ease);
+              transform 120ms var(--ease);
 }
 .btn:active { transform: translateY(1px); }
 
 .btn-primary { background: var(--accent); color: var(--on-accent); }
-.btn-primary:hover { background: var(--accent-text); }
+.btn-primary:hover { background: var(--accent-text); transform: translateY(-1px); }
 
 .btn-quiet {
   background: transparent;
@@ -268,14 +312,16 @@ html { caret-color: var(--accent); }
 }
 .btn-quiet:hover { border-color: var(--ink); background: var(--accent-soft); }
 
-.btn-large { min-height: 54px; padding: 0 30px; font-size: 16px; }
+.btn-large { min-height: 54px; padding: 0 30px; }
 
-.ico { width: 18px; height: 18px; flex: none; }
+.ico { width: 18px; height: 18px; flex: none; transition: transform var(--dur-ui) var(--ease-out-expo); }
 .ico path { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+/* 下载箭头在悬停时向下点一下：图标本身说明了这个按钮要做什么 */
+.btn:hover .ico { transform: translateY(2px); }
 
 /* ========================= HERO ========================= */
 .hero {
-  padding-block: clamp(48px, 7vw, 92px) var(--step);
+  padding-block: clamp(48px, 6vw, 84px) var(--step);
   border-bottom: 1px solid var(--hair);
 }
 
@@ -289,22 +335,18 @@ html { caret-color: var(--accent); }
   .hero-inner { grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); }
 }
 
-.hero-copy h1 {
-  font-size: clamp(38px, 5.4vw, 74px);
-  line-height: 1.08;
-  letter-spacing: -0.028em;
-}
+.hero-copy h1 { letter-spacing: 0; }
 
 .hero-sub {
-  margin-top: 22px;
-  font-size: clamp(17px, 1.5vw, 19px);
-  line-height: 1.72;
+  margin-top: 20px;
+  font-size: var(--t-lead);
+  line-height: 1.7;
   color: var(--ink-2);
-  max-width: 34ch;
+  max-width: 30em;
 }
 
 .hero-actions {
-  margin-top: 32px;
+  margin-top: 30px;
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
@@ -312,19 +354,19 @@ html { caret-color: var(--accent); }
 
 /* 三项事实，用定义列表而不是三个卡片 */
 .hero-facts {
-  margin-top: 40px;
-  padding-top: 22px;
+  margin-top: 38px;
+  padding-top: 20px;
   border-top: 1px solid var(--hair);
   display: flex;
   flex-wrap: wrap;
   gap: 12px clamp(24px, 4vw, 48px);
 }
 .hero-facts div { display: flex; align-items: baseline; gap: 9px; }
-.hero-facts dt { font-size: 13px; color: var(--ink-3); }
+.hero-facts dt { font-size: var(--t-small); color: var(--ink-3); }
 .hero-facts dd {
   margin: 0;
   font-family: var(--mono);
-  font-size: 13.5px;
+  font-size: var(--t-small);
   color: var(--ink);
   font-variant-numeric: tabular-nums;
 }
@@ -337,7 +379,11 @@ html { caret-color: var(--accent); }
   width: 100%;
   border: 1px solid var(--hair);
   background: var(--paper-2);
+  transition: transform var(--dur-ui) var(--ease-out-expo),
+              border-color var(--dur-ui) var(--ease);
 }
+/* 截图是可点的真实界面，悬停时轻轻抬起提示这一点 */
+.shot:hover img { transform: translateY(-4px); border-color: var(--hair-2); }
 
 .shot-main { position: relative; z-index: 2; }
 
@@ -360,8 +406,8 @@ html { caret-color: var(--accent); }
   margin-top: 12px;
   padding-top: 12px;
   border-top: 1px solid var(--hair);
-  font-size: 13px;
-  line-height: 1.65;
+  font-size: var(--t-small);
+  line-height: var(--lh-small);
   color: var(--ink-3);
 }
 
@@ -375,16 +421,11 @@ html { caret-color: var(--accent); }
 }
 .section-ink a { color: var(--accent-on-ink); }
 
-.section h2 {
-  font-size: clamp(28px, 3.4vw, 44px);
-  line-height: 1.14;
-  letter-spacing: -0.022em;
-  max-width: 20ch;
-}
+.section h2 { max-width: 22em; }
 
 /* ========================= WHY（图文非对称） ========================= */
 .split {
-  margin-top: clamp(36px, 5vw, 60px);
+  margin-top: clamp(32px, 4.4vw, 52px);
   display: grid;
   gap: clamp(32px, 5vw, 64px);
   align-items: start;
@@ -393,80 +434,112 @@ html { caret-color: var(--accent); }
   .split { grid-template-columns: minmax(0, 1fr) minmax(0, 1.02fr); }
 }
 
-.split-text p { color: var(--ink-2); max-width: 62ch; }
-.split-text p + p { margin-top: 18px; }
+.split-text p { color: var(--ink-2); max-width: var(--measure); }
+.split-text p + p { margin-top: 16px; }
 .split-text p:first-child {
-  font-size: clamp(17px, 1.4vw, 18.5px);
+  font-size: var(--t-lead);
+  line-height: 1.7;
   color: var(--ink);
+}
+/* 收尾的短句：安静一档，作为段落的落点 */
+.split-kicker {
+  color: var(--ink-3) !important;
+  font-size: var(--t-small) !important;
+  line-height: var(--lh-small) !important;
 }
 
 /* ========================= HOW（纵向时间轴） ========================= */
 .steps {
-  margin-top: clamp(36px, 5vw, 58px);
+  margin-top: clamp(32px, 4.4vw, 52px);
   counter-reset: step;
 }
 .steps li {
   counter-increment: step;
+  position: relative;
   display: grid;
   gap: 4px 28px;
-  padding-block: 26px;
+  padding-block: 24px;
   border-top: 1px solid var(--hair);
 }
 .steps li:last-child { border-bottom: 1px solid var(--hair); }
 
+/* 当前正在读的那一步，青绿线沿着上边缘扫过去。
+   四步是一个有顺序的过程，这条线表示你读到第几步。 */
+.steps li::after {
+  content: "";
+  position: absolute;
+  inset: -1px 0 auto 0;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 520ms var(--ease-out-expo);
+}
+.steps li.is-current::after { transform: scaleX(1); }
+
 @media (min-width: 760px) {
-  .steps li { grid-template-columns: 3.2rem minmax(0, 12rem) minmax(0, 1fr); align-items: baseline; }
+  .steps li { grid-template-columns: 3.2rem minmax(0, 11rem) minmax(0, 1fr); align-items: baseline; }
   .steps h3 { grid-column: 2; }
   .steps p { grid-column: 3; }
-}
-@media (max-width: 759px) {
-  .steps li { padding-block: 22px; }
 }
 
 .steps li::before {
   content: counter(step, decimal-leading-zero);
   font-family: var(--mono);
-  font-size: 12.5px;
+  font-size: var(--t-micro);
   color: var(--accent-text);
   font-variant-numeric: tabular-nums;
+  transition: color var(--dur-micro) var(--ease);
 }
-.steps h3 { font-size: 17px; letter-spacing: -0.01em; }
-.steps p { color: var(--ink-2); }
+.steps p { color: var(--ink-2); max-width: 30em; }
 
 /* ========================= FEATURES（定义列表，不用卡片） ========================= */
 .feature-groups {
-  margin-top: clamp(36px, 5vw, 58px);
+  margin-top: clamp(32px, 4.4vw, 52px);
   display: grid;
-  gap: clamp(34px, 4.5vw, 56px);
+  gap: clamp(32px, 4.2vw, 52px);
 }
 @media (min-width: 900px) {
   .feature-groups { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 .group h3 {
-  font-size: 13px;
+  font-size: var(--t-small);
   font-weight: 700;
   color: var(--accent-text);
-  padding-bottom: 14px;
+  padding-bottom: 12px;
   border-bottom: 1px solid var(--hair-2);
-  letter-spacing: 0;
+  transition: border-color var(--dur-ui) var(--ease);
 }
-.group dl { margin-top: 4px; }
+.group:hover h3 { border-bottom-color: var(--accent); }
+
+.group dl { margin-top: 2px; }
 .group dt {
-  margin-top: 22px;
+  margin-top: 20px;
   font-weight: 700;
-  font-size: 15.5px;
+  font-size: var(--t-body);
+  transition: color var(--dur-micro) var(--ease);
 }
+.group dt:hover { color: var(--accent-text); }
 .group dd {
-  margin-top: 5px;
+  margin-top: 4px;
   color: var(--ink-2);
-  font-size: 14.5px;
-  line-height: 1.7;
+  font-size: var(--t-small);
+  line-height: var(--lh-small);
+}
+
+/* 次要功能收成一行，而不是再铺一整列 */
+.feature-more {
+  margin-top: clamp(28px, 3.4vw, 40px);
+  padding-top: 18px;
+  border-top: 1px solid var(--hair);
+  font-size: var(--t-small);
+  color: var(--ink-3);
 }
 
 /* ========================= PRIVACY ========================= */
 .privacy-grid {
-  margin-top: clamp(36px, 5vw, 58px);
+  margin-top: clamp(32px, 4.4vw, 52px);
   display: grid;
   gap: clamp(32px, 4.5vw, 60px);
 }
@@ -474,29 +547,30 @@ html { caret-color: var(--accent); }
   .privacy-grid { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); }
 }
 
-.privacy-lead p { color: var(--on-ink-2); max-width: 40ch; }
+.privacy-lead p { color: var(--on-ink-2); max-width: 28em; }
 .privacy-lead p + p { margin-top: 16px; }
 .privacy-lead p:first-child {
-  font-size: clamp(17px, 1.4vw, 18.5px);
+  font-size: var(--t-lead);
+  line-height: 1.7;
   color: var(--on-ink);
 }
 
-.verify-list li { padding-block: 20px; border-top: 1px solid var(--hair-on-ink); }
+.verify-list li { padding-block: 18px; border-top: 1px solid var(--hair-on-ink); }
 .verify-list li:last-child { border-bottom: 1px solid var(--hair-on-ink); }
-.verify-list { display: grid; grid-template-columns: 1fr auto; }
-.verify-list li { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr); gap: 3px 20px; }
-.verify-k { font-size: 13px; color: var(--on-ink-3); }
+.verify-list { display: grid; }
+.verify-list li { display: grid; grid-template-columns: minmax(0, 10rem) minmax(0, 1fr); gap: 3px 20px; }
+.verify-k { font-size: var(--t-small); color: var(--on-ink-3); }
 .verify-v {
   font-family: var(--mono);
-  font-size: 13.5px;
+  font-size: var(--t-small);
   color: var(--accent-on-ink);
   font-variant-numeric: tabular-nums;
 }
 .verify-list p {
   grid-column: 2;
   color: var(--on-ink-2);
-  font-size: 14.5px;
-  line-height: 1.68;
+  font-size: var(--t-small);
+  line-height: var(--lh-small);
 }
 .section-ink code { background: rgba(255, 255, 255, .1); color: var(--on-ink); }
 
@@ -507,7 +581,7 @@ html { caret-color: var(--accent); }
 
 /* ========================= DOWNLOAD ========================= */
 .download-panel {
-  margin-top: clamp(32px, 4vw, 52px);
+  margin-top: clamp(28px, 3.6vw, 44px);
   border: 1px solid var(--hair);
   display: grid;
 }
@@ -522,15 +596,15 @@ html { caret-color: var(--accent); }
   align-items: flex-start;
   gap: 16px;
 }
-.download-note { font-size: clamp(17px, 1.4vw, 19px); font-weight: 700; }
-.download-hint { font-size: 13.5px; color: var(--ink-3); max-width: 40ch; }
+.download-note { font-size: var(--t-lead); font-weight: 700; }
+.download-hint { font-size: var(--t-small); color: var(--ink-3); max-width: 34em; }
 
 .download-specs {
   border-top: 1px solid var(--hair);
   padding: clamp(24px, 3.4vw, 40px);
   background: var(--paper-2);
   display: grid;
-  gap: 16px;
+  gap: 14px;
   align-content: start;
 }
 @media (min-width: 860px) {
@@ -538,18 +612,18 @@ html { caret-color: var(--accent); }
 }
 
 .download-specs div { display: grid; grid-template-columns: minmax(0, 7.5rem) minmax(0, 1fr); gap: 14px; }
-.download-specs dt { font-size: 13px; color: var(--ink-3); }
+.download-specs dt { font-size: var(--t-small); color: var(--ink-3); }
 .download-specs dd {
   margin: 0;
   font-family: var(--mono);
-  font-size: 13.5px;
+  font-size: var(--t-small);
   font-variant-numeric: tabular-nums;
 }
 .download-specs .spec-wide { grid-template-columns: 1fr; gap: 6px; }
 .hash {
   background: none;
   padding: 0;
-  font-size: 11.5px;
+  font-size: var(--t-micro);
   line-height: 1.65;
   color: var(--ink-2);
   /* 长哈希必须能换行显示完整，不能被截断 */
@@ -558,57 +632,103 @@ html { caret-color: var(--accent); }
 
 /* ========================= FOOTER ========================= */
 .site-footer {
-  border-top: 1px solid var(--hair);
-  padding-block: 40px 56px;
+  border-top: 1px solid var(--hair-2);
+  padding-block: clamp(40px, 5vw, 64px) 48px;
   background: var(--paper-2);
 }
 .footer-inner {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 16px clamp(24px, 4vw, 48px);
+  display: grid;
+  gap: clamp(24px, 4vw, 64px);
+  align-items: start;
 }
-.footer-brand { font-weight: 700; }
-.footer-links { display: flex; flex-wrap: wrap; gap: 16px clamp(18px, 3vw, 30px); }
-.footer-links a { color: var(--ink-2); text-decoration: none; font-size: 14px; }
-.footer-links a:hover { color: var(--ink); text-decoration: underline; }
-.footer-meta { font-size: 13px; color: var(--ink-3); margin-left: auto; }
-@media (max-width: 719px) { .footer-meta { margin-left: 0; } }
+@media (min-width: 760px) {
+  .footer-inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); }
+}
 
-/* ========================= 动效 =========================
-   MOTION 5：一个编排时刻（hero 截图的裁切揭示），其余只服务于
-   层级与状态。全部动效一次性、不循环；未进入视口前不占据注意力。 */
+.footer-brand { display: flex; gap: 14px; align-items: center; }
+.brand-mark-lg { width: 34px; height: 34px; }
+.footer-brand strong { display: block; font-size: var(--t-body); }
+.footer-brand span { display: block; margin-top: 3px; font-size: var(--t-small); color: var(--ink-3); }
+
+.footer-contact { grid-column: 1 / -1; }
+.footer-contact-title {
+  font-family: var(--mono);
+  font-size: var(--t-micro);
+  letter-spacing: .1em;
+  color: var(--ink-3);
+  margin-bottom: 10px;
+}
+.footer-contact-line { font-size: var(--t-small); color: var(--ink-2); }
+.footer-wechat { font-family: var(--mono); color: var(--ink); }
+.footer-copy { margin-top: 12px; font-size: var(--t-micro); color: var(--ink-3); }
+
+/* =========================================================================
+   动效
+   MOTION 5：每一次动效都要能一句话说明理由，全部一次性、不循环。
+   ========================================================================= */
+
 /* 渐进增强：只有 JS 可用时（<html class="js">）才把元素先藏起来等待揭示。
    无 JS、JS 报错、或观察器未触发时，内容保持默认可见。
    反过来做（默认隐藏、靠 JS 显示）会让脚本一失败就整页空白。 */
 .js [data-reveal] {
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(18px);
   transition: opacity var(--dur-reveal) var(--ease),
-              transform var(--dur-reveal) var(--ease);
+              transform var(--dur-reveal) var(--ease-out-expo);
 }
 .js [data-reveal].is-visible { opacity: 1; transform: none; }
+
+/* 首屏分段入场：标题 → 正文 → 操作 → 事实，依次上浮。
+   建立阅读顺序，而不是让整块内容同时出现。 */
+.js .rise {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 560ms var(--ease),
+              transform 680ms var(--ease-out-expo);
+}
+.js .rise.is-in { opacity: 1; transform: none; }
+.js .rise-2 { transition-delay: 90ms; }
+.js .rise-3 { transition-delay: 170ms; }
+.js .rise-4 { transition-delay: 250ms; }
+
+/* 品牌环的描边：首屏唯一的编排时刻。
+   产品的核心隐喻就是「环」，让它画出来比直接出现更贴题。 */
+.js .ring-arc {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: ring-draw 900ms var(--ease-out-expo) 300ms forwards;
+}
+@keyframes ring-draw { to { stroke-dashoffset: 0; } }
 
 /* hero 截图用裁切揭示，比单纯淡入更贴合"仪表盘亮起"的产品感 */
 .js .hero-visual .shot {
   opacity: 0;
   clip-path: inset(0 0 100% 0);
-  transition: opacity 520ms var(--ease), clip-path 760ms var(--ease);
+  transition: opacity 520ms var(--ease), clip-path 780ms var(--ease-out-expo);
 }
 .js .hero-visual .shot.is-visible { opacity: 1; clip-path: inset(0 0 0 0); }
-.js .hero-visual .shot-sub { transition-delay: 140ms; }
+.js .hero-visual .shot-sub { transition-delay: 150ms; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .js [data-reveal],
+  .js .rise,
   .js .hero-visual .shot {
     opacity: 1 !important;
     transform: none !important;
     clip-path: none !important;
     transition: none !important;
   }
-  .btn { transition: none; }
-  .btn:active { transform: none; }
+  /* 环必须完整显示，不能停在未画完的状态 */
+  .js .ring-arc {
+    animation: none !important;
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+  .steps li::after { transition: none !important; }
+  .nav-marker { transition: none !important; }
+  .btn, .ico, .shot img, .group h3, .group dt { transition: none !important; }
+  .btn:active, .btn-primary:hover, .shot:hover img, .btn:hover .ico { transform: none !important; }
   .read-progress { display: none; }
 }
 
