@@ -60,8 +60,13 @@
     var current = null;
 
     function place(link) {
+      // 位置用 translateX，宽度用 scaleX —— 两者都是 transform，
+      // 不触发布局重排。基准宽度从 CSS 读，避免和样式表里的数字对不上。
+      var base = parseFloat(
+        window.getComputedStyle(marker).getPropertyValue("--nav-base")
+      ) || 240;
       marker.style.setProperty("--nav-x", link.offsetLeft + "px");
-      marker.style.setProperty("--nav-w", link.offsetWidth + "px");
+      marker.style.setProperty("--nav-scale", String(link.offsetWidth / base));
       marker.classList.add("is-on");
     }
 

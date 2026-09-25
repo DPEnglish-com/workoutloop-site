@@ -252,19 +252,22 @@ html { caret-color: var(--accent); scroll-behavior: smooth; }
   font-weight: 700;
 }
 
-/* 当前所在区块的滑块下划线。它回答「我读到哪了」，不是装饰。 */
+/* 当前所在区块的滑块下划线。它回答「我读到哪了」，不是装饰。
+   只动 transform：直接过渡 width 会触发布局重排（检测器判为
+   layout-transition，长时间跑会掉帧）。基准宽度给足，靠 scaleX 缩到实际宽度。 */
 .nav-marker {
+  --nav-base: 240px;
   position: absolute;
   left: 0;
   bottom: -9px;
   height: 2px;
-  width: var(--nav-w, 0px);
+  width: var(--nav-base);
   background: var(--accent);
-  transform: translateX(var(--nav-x, 0px));
+  transform-origin: 0 50%;
+  transform: translateX(var(--nav-x, 0px)) scaleX(var(--nav-scale, 0));
   opacity: 0;
   pointer-events: none;
   transition: transform 340ms var(--ease-out-expo),
-              width 340ms var(--ease-out-expo),
               opacity var(--dur-ui) var(--ease);
 }
 .nav-marker.is-on { opacity: 1; }
