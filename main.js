@@ -178,12 +178,21 @@
 
     Array.prototype.forEach.call(items, function (el) { observer.observe(el); });
 
-    // 安全网：观察器在某些环境（无头浏览器、极窄视口、被 iframe 收起）
-    // 可能始终不报告可见，元素就会一直停在 opacity:0。这里在首屏时间之后
-    // 强制放行仍然隐藏的元素，宁可少一次动画，也不能让内容读不到。
+    // 安全网：观察器在某些环境（无头浏览器、被 iframe 收起）可能始终不报告
+    // 可见，元素就会一直停在 opacity:0。但**不能无差别放行所有元素** ——
+    // 那样首屏时间一到，视口外的内容也全部提前变成可见，滚到那里时
+    // 揭示动画已经播完，滚动揭示就等于没有了。
+    // 所以只放行"此刻已经在视口内、却仍没被揭示"的元素：那说明观察器
+    // 没在工作，而不是"还没滚到"。视口高度异常时（无头默认视口为 0）
+    // 无从判断，此时优先保证内容可读。
     window.setTimeout(function () {
+      var vh = window.innerHeight || 0;
+      var degenerate = vh < 200;
       Array.prototype.forEach.call(items, function (el) {
-        if (!el.classList.contains("is-visible")) {
+        if (el.classList.contains("is-visible")) return;
+        var r = el.getBoundingClientRect();
+        var inView = r.top < vh && r.bottom > 0;
+        if (degenerate || inView) {
           el.style.transitionDelay = "0ms";
           el.classList.add("is-visible");
           observer.unobserve(el);
