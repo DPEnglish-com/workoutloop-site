@@ -16,10 +16,12 @@
 <meta property="og:image" content="https://dpenglish-com.github.io/workoutloop-site/assets/shots/home.png">
 <meta name="twitter:card" content="summary_large_image">
 
-<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<!-- 图标带版本串：favicon 的缓存浏览器单独一份、键是 URL，内容换了但路径不变
+     时它会一直用旧图，硬刷新也不一定重取。改图标必须同时把 v 往上推。 -->
+<link rel="icon" href="./favicon.svg?v=2" type="image/svg+xml">
 <!-- 主屏图标用站点自己的标记（浅底 + 深青环），不再拿首页截图充当。
      截图会随页面改版过期，且 1600×1000 的横图在被裁成方形后会切掉两侧。 -->
-<link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
+<link rel="apple-touch-icon" href="./assets/apple-touch-icon.png?v=2">
 <link rel="preload" href="./assets/fonts/workoutloop-sans-regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="./assets/fonts/workoutloop-sans-bold.woff2" as="font" type="font/woff2" crossorigin>
 <script>document.documentElement.className += " js";</script>
