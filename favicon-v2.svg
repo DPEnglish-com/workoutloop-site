@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108" width="108" height="108">
+  <!-- 浅色底 + 深青弧（产品的「环」）。标签栏、收藏夹、主屏图标底色多半是浅色，
+       标记要在浅底上自己站住；页面里的 .brand-mark 是内联 SVG，仍随主题走。
+       色值取自 styles.css 的浅色令牌：纸 --paper #F5F7F5、强调 --accent #1B5E54。
+       底环用 --hair-2（30% 墨）而不是页面上的 --hair（14%）：
+       16px 图标上的细线只有 1.35:1 太虚，30% 合成出来是 1.99:1，与原来深底版
+       那圈 1.59:1 同一档观感，小尺寸下才看得出这是个环。 -->
+  <rect width="108" height="108" fill="#F5F7F5"/>
+  <circle cx="54" cy="54" r="33" fill="none" stroke="#AFB2B1" stroke-width="9"/>
+  <path d="M54 21a33 33 0 0 1 23.3 56.3" fill="none" stroke="#1B5E54" stroke-width="9" stroke-linecap="round"/>
+</svg>

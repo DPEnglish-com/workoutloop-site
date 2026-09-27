@@ -16,12 +16,17 @@
 <meta property="og:image" content="https://dpenglish-com.github.io/workoutloop-site/assets/shots/home.png">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- 图标带版本串：favicon 的缓存浏览器单独一份、键是 URL，内容换了但路径不变
-     时它会一直用旧图，硬刷新也不一定重取。改图标必须同时把 v 往上推。 -->
-<link rel="icon" href="./favicon.svg?v=2" type="image/svg+xml">
+<!-- 图标换路径（-v2），而不是加 ?v=2 查询串。
+     原因：这个 URL 从首版起没变过，今天只换了里面的颜色，浏览器那份图标缓存
+     就一直用磁盘上那张深底旧图 —— 硬刷新也不一定重取。加 ?v=2 试过一轮，
+     在用户的 Chrome 里没产生新记录（图标库仍是旧的 favicon.svg，位图还是深底），
+     具体在哪一环被吞掉没查清。换个新路径则任何缓存实现下都是全新键，不赌这一点。
+     旧路径的两个文件保留不删，内容也换成新的：还缓存着旧 HTML 的标签页
+     仍会去请求 favicon.svg，删掉就是 404。代价是每换一次图标多留一组文件。 -->
+<link rel="icon" href="./favicon-v2.svg" type="image/svg+xml">
 <!-- 主屏图标用站点自己的标记（浅底 + 深青环），不再拿首页截图充当。
      截图会随页面改版过期，且 1600×1000 的横图在被裁成方形后会切掉两侧。 -->
-<link rel="apple-touch-icon" href="./assets/apple-touch-icon.png?v=2">
+<link rel="apple-touch-icon" href="./assets/apple-touch-icon-v2.png">
 <link rel="preload" href="./assets/fonts/workoutloop-sans-regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="./assets/fonts/workoutloop-sans-bold.woff2" as="font" type="font/woff2" crossorigin>
 <script>document.documentElement.className += " js";</script>
