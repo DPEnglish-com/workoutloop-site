@@ -67,8 +67,8 @@
   --measure: 34em;
 
   --gutter: clamp(20px, 5vw, 64px);
-  --maxw: 1160px;
-  --step: clamp(68px, 7.5vw, 112px);
+  --maxw: 1240px;
+  --step: clamp(72px, 8vw, 128px);
 
   /* ---- 动效：三档时长 + 两条曲线 ----
      160ms 状态反馈 / 240ms 位移形变 / 620ms 入场。全部一次性，不循环。 */
@@ -666,6 +666,7 @@ html { caret-color: var(--accent); scroll-behavior: smooth; }
   margin-bottom: 10px;
 }
 .footer-contact-line { font-size: var(--t-small); color: var(--ink-2); }
+.footer-contact-sub { margin-top: 5px; }
 .footer-wechat { font-family: var(--mono); color: var(--ink); }
 .footer-copy { margin-top: 12px; font-size: var(--t-micro); color: var(--ink-3); }
 
